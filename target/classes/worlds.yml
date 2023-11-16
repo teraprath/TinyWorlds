@@ -1,0 +1,11 @@
+world:
+  icon: GRASS_BLOCK
+  difficulty: HARD
+  pvp: true
+  keep_inventory: false
+  mob_griefing: true
+  fire_tick: false
+world_nether:
+  icon: NETHER_QUARTZ_ORE
+world_the_end:
+  icon: END_STONE
