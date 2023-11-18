@@ -97,11 +97,6 @@
             <version>4.3.0</version>
         </dependency>
         <dependency>
-            <groupId>com.github.hamza-cskn.obliviate-invs</groupId>
-            <artifactId>pagination</artifactId>
-            <version>4.3.0</version>
-        </dependency>
-        <dependency>
             <groupId>io.github.rapha149.signgui</groupId>
             <artifactId>signgui</artifactId>
             <version>2.2.1</version>
