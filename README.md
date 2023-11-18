@@ -1,6 +1,6 @@
 <div align="center">
 <div>
-    <img src="https://raw.githubusercontent.com/teraprath/TinyWorlds/main/img/tinyworlds.png">
+    <img src="https://raw.githubusercontent.com/teraprath/TinyWorlds/main/img/tinyworlds_banner.png">
     <p>No bloated World Manager Plugin for Paper 1.20+ <p>
 </div>
 </div>
