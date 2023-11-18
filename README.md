@@ -1,7 +1,7 @@
 <div align="center">
 <div>
     <h1>TinyWorlds</h1>
-    <p>Personal libary for Paper 1.20+<p>
+    <p>No bloated World Manager Plugin for Paper 1.20+ <p>
 </div>
 </div>
 
