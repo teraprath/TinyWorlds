@@ -1,8 +1,8 @@
 <div align="center">
 <div>
     <img src="https://raw.githubusercontent.com/teraprath/TinyWorlds/main/img/tinyworlds_banner.png">
-    <p>No bloated World Manager Plugin for Paper 1.20+ <p>
-    <a target="_blank" href="https://github.com/teraprath/TinyWorlds/blob/main/Preview.md">Screenshots</a>
+    <p>Simple World Gui Plugin for Paper 1.20+ <p>
+    <a target="_blank" href="https://hangar.papermc.io/TerryGHG/TinyWorlds">Page</a>
 </div>
 </div>
 
