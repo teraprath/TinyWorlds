@@ -4,6 +4,7 @@ import com.github.teraprath.tinylib.item.TinyItem;
 import com.github.teraprath.tinylib.lang.MultiLanguage;
 import com.github.teraprath.tinylib.text.TinyText;
 import com.github.teraprath.tinyworlds.TinyWorlds;
+import com.github.teraprath.tinyworlds.world.WorldSettings;
 import mc.obliviate.inventory.Gui;
 import mc.obliviate.inventory.Icon;
 import org.bukkit.Material;
@@ -27,7 +28,8 @@ public class MainGui extends Gui {
         MultiLanguage lang = plugin.getLanguage();
         fillGui(new Icon(Material.BLACK_STAINED_GLASS_PANE).setName(new TinyText(lang.getMessage(player, "gui_placeholder")).toString()));
         AtomicInteger slot = new AtomicInteger();
-        plugin.getWorldConfig().getWorlds().forEach(((world, worldSettings) -> {
+        plugin.getServer().getWorlds().forEach((world -> {
+            WorldSettings worldSettings = plugin.getWorldConfig().getWorlds().get(world);
             addItem(slot.get(), new Icon(new TinyItem(worldSettings.getIcon()).get()).setName(new TinyText(lang.getMessage(player, "gui_world_name")).value("world", world.getName()).toString()).setLore(new TinyText(lang.getMessage(player, "gui_world_online_players")).value("amount", world.getPlayerCount()).toString(), new TinyText(lang.getMessage(player, "gui_left_click")).value("action", lang.getMessage(player, "gui_action_settings")).toString(), new TinyText(lang.getMessage(player, "gui_right_click")).value("action", lang.getMessage(player, "gui_action_teleport")).toString()).onClick(clickEvent -> {
                 clickEvent.setCancelled(true);
                 if (clickEvent.isRightClick()) {
@@ -38,18 +40,18 @@ public class MainGui extends Gui {
             }));
             slot.getAndIncrement();
         }));
-        addItem(slot.get(), new Icon(Material.GREEN_STAINED_GLASS_PANE).setName(new TinyText(lang.getMessage(player, "gui_new_world")).toString()).onClick(clickEvent -> {
+        addItem(slot.get(), new Icon(Material.GREEN_STAINED_GLASS_PANE).setName(new TinyText(lang.getMessage(player, "gui_add_world")).toString()).onClick(clickEvent -> {
             clickEvent.setCancelled(true);
-            player.closeInventory();
+            new SetupGui(plugin, player, this).open();
         }));
     }
 
     private void updateSize() {
-        if (plugin.getWorldConfig().getWorlds().size() > 44) { setSize(6); }
-        if (plugin.getWorldConfig().getWorlds().size() > 35) { setSize(5); }
-        if (plugin.getWorldConfig().getWorlds().size() > 26) { setSize(4); }
-        if (plugin.getWorldConfig().getWorlds().size() > 17) { setSize(3); }
-        if (plugin.getWorldConfig().getWorlds().size() > 8) { setSize(2); }
+        if (plugin.getServer().getWorlds().size() >= 45) { sendSizeUpdate(6 * 9); }
+        if (plugin.getServer().getWorlds().size() >= 36) { sendSizeUpdate(5 * 9); }
+        if (plugin.getServer().getWorlds().size() >= 27) { sendSizeUpdate(4 * 9); }
+        if (plugin.getServer().getWorlds().size() >= 18) { sendSizeUpdate(3 * 9); }
+        if (plugin.getServer().getWorlds().size() >= 9) { sendSizeUpdate(2 * 9); }
     }
 
 

@@ -1,21 +1,23 @@
 package com.github.teraprath.tinyworlds.world;
 
 import com.github.teraprath.tinylib.config.TinyConfig;
+import com.github.teraprath.tinylib.text.TinyText;
 import com.github.teraprath.tinyworlds.TinyWorlds;
 import lombok.Getter;
+import mc.obliviate.inventory.Icon;
 import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.EntityType;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 @Getter
 public class WorldConfig extends TinyConfig {
 
     private final TinyWorlds plugin;
-    private final HashMap<World, WorldSettings> worlds = new HashMap<>();
+    private HashMap<World, WorldSettings> worlds = new HashMap<>();
 
     public WorldConfig(@NotNull TinyWorlds plugin) {
         super(plugin, "worlds");
@@ -24,6 +26,17 @@ public class WorldConfig extends TinyConfig {
 
     @Override
     public void onLoad(FileConfiguration config) {
+        worlds = new HashMap<>();
+        File[] worlds = Bukkit.getWorldContainer().listFiles();
+        for (int i = 0; i < worlds.length; i++) {
+            File file = worlds[i];
+            if (file.isDirectory() && Arrays.asList(file.list()).contains("level.dat") && Bukkit.getWorld(file.getName()) == null) {
+                if (plugin.getServer().getWorld(file.getName()) == null && config.getBoolean(file.getName() + ".auto_load")) {
+                    plugin.getServer().createWorld(new WorldCreator(file.getName()).environment(World.Environment.valueOf(config.getString(file.getName() + ".environment"))));
+                }
+            }
+        }
+
         plugin.getServer().getWorlds().forEach(world -> {
             WorldSettings settings = new WorldSettings();
 
@@ -60,6 +73,8 @@ public class WorldConfig extends TinyConfig {
     @Override
     public void onPreSave(FileConfiguration config) {
         this.worlds.forEach((world, settings) -> {
+            config.set(world.getName() + ".auto_load", settings.isAutoLoad());
+            config.set(world.getName() + ".environment", world.getEnvironment().name());
             config.set(world.getName() + ".icon", settings.getIcon().name());
             config.set(world.getName() + ".difficulty", settings.getDifficulty().name());
             config.set(world.getName() + ".pvp", settings.isPvp());

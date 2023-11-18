@@ -4,6 +4,7 @@ import com.github.teraprath.tinylib.item.TinyItem;
 import com.github.teraprath.tinylib.lang.MultiLanguage;
 import com.github.teraprath.tinylib.text.TinyText;
 import com.github.teraprath.tinyworlds.TinyWorlds;
+import com.github.teraprath.tinyworlds.utils.TitleUtils;
 import com.github.teraprath.tinyworlds.world.WorldSettings;
 import mc.obliviate.inventory.Gui;
 import mc.obliviate.inventory.Icon;
@@ -73,7 +74,7 @@ public class SettingsGui extends Gui {
             }
         }));
 
-        Icon fireTick = new Icon(new TinyItem(Material.BLAZE_POWDER).addItemFlags(ItemFlag.values()).get()).setName(new TinyText(lang.getMessage(player, "gui_settings_fire_tick")).toString()).setLore("§7" + settings.isFireTick(), action);
+        Icon fireTick = new Icon(new TinyItem(Material.BLAZE_POWDER).addItemFlags(ItemFlag.values()).get()).setName(new TinyText(lang.getMessage(player, "gui_settings_fire_tick")).toString()).setLore("§7" + settings.isFireTick(), new TinyText(lang.getMessage(player, "gui_click_to_change")).toString());
         addItem(14, fireTick.onClick(clickEvent -> {
             settings.setFireTick(!(settings.isFireTick()));
             update();
@@ -116,10 +117,28 @@ public class SettingsGui extends Gui {
             update();
         }));
 
-        Icon unload = new Icon(new TinyItem(Material.STONECUTTER).addItemFlags(ItemFlag.values()).get()).setName(new TinyText(lang.getMessage(player, "gui_settings_unload")).toString()).setLore(new TinyText(lang.getMessage(player, "gui_click")).value("action", lang.getMessage(player, "gui_action_unload")).toString());
+        boolean isLevelName = plugin.getServer().getWorlds().get(0).equals(world);
+        String lore = new TinyText(lang.getMessage(player, "gui_click")).value("action", lang.getMessage(player, "gui_action_unload")).toString();
+        if (isLevelName) {
+            lore = new TinyText(lang.getMessage(player, "gui_cannot_unload")).toString();
+        }
+
+        Icon unload = new Icon(new TinyItem(Material.STONECUTTER).addItemFlags(ItemFlag.values()).get()).setName(new TinyText(lang.getMessage(player, "gui_settings_unload")).toString()).setLore(lore);
         addItem(34, unload.onClick(clickEvent -> {
-            // TODO: Unload World
-            player.closeInventory();
+            clickEvent.setCancelled(true);
+            if (!(isLevelName)) {
+                TitleUtils.send(player, new TinyText(lang.getMessage(player, "title_unload_world")).value("world", world.getName()).toString());
+                player.closeInventory();
+                world.getPlayers().forEach(p -> {
+                    p.teleport(plugin.getServer().getWorlds().get(0).getSpawnLocation());
+                });
+                plugin.getWorldConfig().getWorlds().get(world).setAutoLoad(false);
+                plugin.saveConfig();
+                plugin.getServer().unloadWorld(world, true);
+                plugin.reloadConfig();
+                new MainGui(player, plugin).open();
+                TitleUtils.clear(player);
+            }
         }));
     }
 

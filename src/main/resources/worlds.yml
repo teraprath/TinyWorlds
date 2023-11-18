@@ -1,11 +1,27 @@
-world:
-  icon: GRASS_BLOCK
-  difficulty: HARD
+world_nether:
+  auto_load: true
+  environment: NETHER
+  icon: NETHER_QUARTZ_ORE
+  difficulty: NORMAL
   pvp: true
   keep_inventory: false
   mob_griefing: true
   fire_tick: false
-world_nether:
-  icon: NETHER_QUARTZ_ORE
 world_the_end:
+  auto_load: true
+  environment: THE_END
   icon: END_STONE
+  difficulty: NORMAL
+  pvp: true
+  keep_inventory: false
+  mob_griefing: true
+  fire_tick: false
+world:
+  auto_load: true
+  environment: NORMAL
+  icon: GRASS_BLOCK
+  difficulty: NORMAL
+  pvp: true
+  keep_inventory: false
+  mob_griefing: true
+  fire_tick: false

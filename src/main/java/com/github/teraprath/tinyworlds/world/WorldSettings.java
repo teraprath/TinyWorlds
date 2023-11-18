@@ -3,11 +3,7 @@ package com.github.teraprath.tinyworlds.world;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Difficulty;
-import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
-
-import java.util.ArrayList;
 
 @Getter
 @Setter
@@ -19,6 +15,7 @@ public class WorldSettings {
     private boolean keepInventory;
     private boolean mobGriefing;
     private boolean fireTick;
+    private boolean autoLoad;
 
     public WorldSettings() {
         this.icon = Material.MAP;
@@ -27,6 +24,7 @@ public class WorldSettings {
         this.keepInventory = false;
         this.mobGriefing = true;
         this.fireTick = false;
+        this.autoLoad = true;
     }
 
 }
