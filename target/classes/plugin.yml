@@ -1,9 +1,0 @@
-name: TinyWorlds
-version: '1.0-STABLE'
-main: com.github.teraprath.tinyworlds.TinyWorlds
-api-version: '1.20'
-authors: [TerryGHG]
-commands:
-  worlds:
-    description: Open the Worlds Gui
-    permission: tiny.command.worlds
