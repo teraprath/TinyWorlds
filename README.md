@@ -2,6 +2,7 @@
 <div>
     <img src="https://raw.githubusercontent.com/teraprath/TinyWorlds/main/img/tinyworlds_banner.png">
     <p>No bloated World Manager Plugin for Paper 1.20+ <p>
+    <a target="_blank" href="https://github.com/teraprath/TinyWorlds/blob/main/Preview.md">Screenshots</a>
 </div>
 </div>
 
@@ -12,7 +13,6 @@
 - Multi-Language Support
 - Create/Delete & Load/Unload Worlds
 - Per World Settings
-
 - GUI Setup
 
 ## Gettings Started
