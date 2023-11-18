@@ -6,7 +6,7 @@
 
     <groupId>com.github.teraprath</groupId>
     <artifactId>TinyWorlds</artifactId>
-    <version>1.0-STABLE</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>TinyWorlds</name>
